@@ -58,6 +58,38 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     });
     cy.screenshot('full-article-page'); 
 });
+
+Cypress.Commands.add('Giftcard', () => {
+
+    cy.visit('https://www.edgewordstraining.co.uk/demo-site/');
+    cy.get('#woocommerce-product-search-field-0').type('cap {enter}')
+    cy.get('input[type="number"]').clear().type('3')
+    cy.get('.single_add_to_cart_button').click()
+    cy.wait(5000)
+    cy.get('#woocommerce-product-search-field-0').type('belt {enter}')
+    cy.get('.single_add_to_cart_button').click()
+    cy.get('.woocommerce-message > .button').click()
+    cy.get('.checkout-button').click()
+    cy.get('#billing_first_name').type('Sarmad')
+    cy.get('#billing_last_name').type('Riaz')
+
+    cy.get('#select2-billing_country-container').click(); 
+    cy.get('.select2-results__option').contains('Pakistan').click();
+    cy.get('#billing_address_1').type('Abbottabad Pakistan')
+    cy.get('#billing_city').type('Abbottabad')
+    cy.get('#select2-billing_state-container').click()
+    cy.get('#select2-billing_state-results').contains('Khyber').click()
+    cy.get('#billing_postcode').type('22010')
+    cy.get('#billing_phone').type('03165307039')
+    cy.get('#billing_email').type('sarmadriaz5@gmail.com')
+    cy.get('#account_password').type('Asdfgh123456@asdfg!')
+    cy.get('.wc_payment_method.payment_method_cod > label').click();
+    cy.get('#place_order').click()
+    cy.get('.beta > a').should('have.text','Edgewords Shop')
+
+
+
+});
    
  
   
